@@ -3,8 +3,8 @@
 }
 
 cms.vima-test.site {
+    handle_path /api* {
+	    reverse_proxy http://cms_back:5000
+    }
     reverse_proxy http://cms_front:3000
-}
-cms.vima-test.site/api {
-    reverse_proxy http://cms_back:5000
 }

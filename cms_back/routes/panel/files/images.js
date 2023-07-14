@@ -77,6 +77,18 @@ router.get("/", auth, getAdmin, async (req, res, next) => {
     CONTENT_IMAGE_SUB_PATH
   );
 
+  if (!fs.existsSync(images_path)) {
+    return utils.logAndReturn(
+      200,
+      {
+        success: true,
+        images: [],
+      },
+      req,
+      res
+    );
+  }
+
   fs.readdir(images_path, function (err, files) {
     //handling error
     if (!utils.isEmpty(err)) {
