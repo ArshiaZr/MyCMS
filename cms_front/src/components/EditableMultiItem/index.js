@@ -56,19 +56,6 @@ export default function EditableMultiItem({
       <div className={styles.addItem} onClick={() => addItem()}>
         <AiOutlinePlusSquare />
       </div>
-      {/* <div
-          className={styles.iconWrapper}
-          onClick={onEditClick}
-          style={{
-            display: `${
-              ref.current && originalItems === ref.current.value
-                ? "none"
-                : "flex"
-            }`,
-          }}
-        >
-          <AiOutlineCheckCircle />
-        </div> */}
     </div>
   );
 }

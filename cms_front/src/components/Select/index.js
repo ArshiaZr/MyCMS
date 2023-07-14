@@ -9,15 +9,17 @@ export default function Select({
   titleShow = true,
   defaultValue = "",
   backgroundColor = "rgba(227, 227, 227, 0.2)",
+  border = false,
+  center = false,
 }) {
   return (
-    <div className={styles.selectWrapper}>
+    <div className={`${styles.selectWrapper} ${center ? styles.center : ""}`}>
       <p className={`${styles.title} ${titleShow ? styles.show : ""}`}>
         {showingTitle}
       </p>
       <div className={styles.container}>
         <select
-          className={styles.select}
+          className={`${styles.select} ${border ? styles.border : ""}`}
           name={title}
           onChange={onChange}
           style={{ background: backgroundColor }}

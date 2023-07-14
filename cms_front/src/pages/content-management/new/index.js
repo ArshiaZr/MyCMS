@@ -16,6 +16,9 @@ import EditableMultiItem from "@/components/EditableMultiItem";
 import TextArea from "@/components/TextArea";
 
 import getConfig from "next/config";
+import { interprets } from "../../../../constants";
+import EditableMultiItem2 from "@/components/EditableMultiItem2";
+import Select from "@/components/Select";
 const { publicRuntimeConfig } = getConfig();
 
 export default function NewContent() {
@@ -23,7 +26,10 @@ export default function NewContent() {
 
   const [newContentErrors, setNewContentErrors] = useState({});
   const [newContent, setNewContent] = useState({
-    contents: { headers: ["title", "detail", "images", "link"], data: [] },
+    contents: {
+      headers: ["order", "title", "detail", "images", "link"],
+      data: [],
+    },
   });
 
   const { token, addAlert } = useAppStatesContext();
@@ -83,7 +89,7 @@ export default function NewContent() {
 
   const addImage = (idxRow) => {
     let data = [...newContent.contents.data];
-    data[idxRow][2].push("");
+    data[idxRow][3].push({});
 
     setNewContent({
       ...newContent,
@@ -91,9 +97,9 @@ export default function NewContent() {
     });
   };
 
-  const changeImages = (index, value, items, idxRow) => {
+  const changeImages = (index, key, value, idxRow) => {
     let data = [...newContent.contents.data];
-    data[idxRow][2][index] = value;
+    data[idxRow][3][index][key] = value;
 
     setNewContent({
       ...newContent,
@@ -101,9 +107,9 @@ export default function NewContent() {
     });
   };
 
-  const deleteImage = (index, items, idxRow) => {
+  const deleteImage = (index, idxRow) => {
     let data = [...newContent.contents.data];
-    data[idxRow][2].splice(index, 1);
+    data[idxRow][3].splice(index, 1);
 
     setNewContent({
       ...newContent,
@@ -113,7 +119,7 @@ export default function NewContent() {
 
   const deleteContentRow = (idxRow) => {
     let data = [...newContent.contents.data];
-    data.splice(idxRow);
+    data.splice(idxRow, 1);
 
     setNewContent({
       ...newContent,
@@ -123,7 +129,7 @@ export default function NewContent() {
 
   const addContentRow = () => {
     let data = [...newContent.contents.data];
-    data.push(["", "", [], ""]);
+    data.push(["", "", "", [], ""]);
 
     setNewContent({
       ...newContent,
@@ -224,10 +230,34 @@ export default function NewContent() {
                         <div>{idxRow + 1} </div>
                       </td>
                       {row.map((cell, idxCell) => {
-                        if (idxCell == 2) {
+                        if (idxCell == 0) {
+                          return (
+                            <td
+                              key={`${idxRow}-${idxCell}`}
+                              style={{ width: "3rem" }}
+                            >
+                              <Select
+                                options={Array.apply(
+                                  null,
+                                  Array(newContent.contents.data.length)
+                                ).map(function (x, i) {
+                                  return i + 1;
+                                })}
+                                title={`order_${0}`}
+                                defaultValue={cell}
+                                onChange={(e) => {
+                                  onContentChange(e, idxRow, idxCell);
+                                }}
+                                backgroundColor="transparent"
+                                border={true}
+                              />
+                            </td>
+                          );
+                        }
+                        if (idxCell == 3) {
                           return (
                             <td key={`${idxRow}-${idxCell}`}>
-                              <EditableMultiItem
+                              <EditableMultiItem2
                                 options={imageOptions ? imageOptions : []}
                                 originalItems={cell}
                                 name={`images-${idxRow}`}
@@ -240,7 +270,7 @@ export default function NewContent() {
                             </td>
                           );
                         }
-                        if (idxCell == 1) {
+                        if (idxCell == 2) {
                           return (
                             <td key={`${idxRow}-${idxCell}`}>
                               <TextArea
@@ -249,6 +279,7 @@ export default function NewContent() {
                                 onChange={(e) => {
                                   onContentChange(e, idxRow, idxCell);
                                 }}
+                                interprets={interprets}
                               />
                             </td>
                           );

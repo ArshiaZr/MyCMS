@@ -17,6 +17,9 @@ import Link from "next/link";
 import TextArea from "@/components/TextArea";
 
 import getConfig from "next/config";
+import { interprets } from "../../../../constants";
+import Select from "@/components/Select";
+import EditableMultiItem2 from "@/components/EditableMultiItem2";
 const { publicRuntimeConfig } = getConfig();
 
 export default function NewContent() {
@@ -27,6 +30,7 @@ export default function NewContent() {
   const [content, setContent] = useState({});
 
   const [contentHeaders, setContentHeaders] = useState([
+    "order",
     "title",
     "detail",
     "images",
@@ -58,6 +62,8 @@ export default function NewContent() {
     }
 
     let toSend = { ...content, contents: contentsToSend };
+
+    console.log(toSend);
 
     axios
       .post(
@@ -91,35 +97,35 @@ export default function NewContent() {
 
   const addImage = (idxRow) => {
     let data = [...contentData];
-    data[idxRow][2].push("");
+    data[idxRow][3].push({});
 
     setContentData(data);
   };
 
-  const changeImages = (index, value, items, idxRow) => {
+  const changeImages = (index, key, value, idxRow) => {
     let data = [...contentData];
-    data[idxRow][2][index] = value;
+    data[idxRow][3][index][key] = value;
 
     setContentData(data);
   };
 
-  const deleteImage = (index, items, idxRow) => {
+  const deleteImage = (index, idxRow) => {
     let data = [...contentData];
-    data[idxRow][2].splice(index, 1);
+    data[idxRow][3].splice(index, 1);
 
     setContentData(data);
   };
 
   const deleteContentRow = (idxRow) => {
     let data = [...contentData];
-    data.splice(idxRow);
+    data.splice(idxRow, 1);
 
     setContentData(data);
   };
 
   const addContentRow = () => {
     let data = [...contentData];
-    data.push(["", "", [], ""]);
+    data.push(["", "", "", [], ""]);
     setContentData(data);
   };
 
@@ -246,10 +252,34 @@ export default function NewContent() {
                         <div>{idxRow + 1} </div>
                       </td>
                       {row.map((cell, idxCell) => {
-                        if (idxCell == 2) {
+                        if (idxCell == 0) {
+                          return (
+                            <td
+                              key={`${idxRow}-${idxCell}`}
+                              style={{ width: "3rem" }}
+                            >
+                              <Select
+                                options={Array.apply(
+                                  null,
+                                  Array(contentData.length)
+                                ).map(function (x, i) {
+                                  return i + 1;
+                                })}
+                                title={`order_${0}`}
+                                defaultValue={cell}
+                                onChange={(e) => {
+                                  onContentChange(e, idxRow, idxCell);
+                                }}
+                                backgroundColor="transparent"
+                                border={true}
+                              />
+                            </td>
+                          );
+                        }
+                        if (idxCell == 3) {
                           return (
                             <td key={`${idxRow}-${idxCell}`}>
-                              <EditableMultiItem
+                              <EditableMultiItem2
                                 options={imageOptions ? imageOptions : []}
                                 originalItems={cell}
                                 name={`images-${idxRow}`}
@@ -262,7 +292,7 @@ export default function NewContent() {
                             </td>
                           );
                         }
-                        if (idxCell == 1) {
+                        if (idxCell == 2) {
                           return (
                             <td key={`${idxRow}-${idxCell}`}>
                               <TextArea
@@ -271,6 +301,7 @@ export default function NewContent() {
                                 onChange={(e) => {
                                   onContentChange(e, idxRow, idxCell);
                                 }}
+                                interprets={interprets}
                               />
                             </td>
                           );

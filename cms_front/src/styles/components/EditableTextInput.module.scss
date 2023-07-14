@@ -23,6 +23,10 @@
       color: #1a1d1f;
       font-size: 0.8rem;
 
+      &.border {
+        border: 1px solid #1a1d1f;
+      }
+
       &::placeholder {
         color: #1a1d1f;
         text-transform: capitalize;

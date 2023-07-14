@@ -7,11 +7,30 @@ export default function TextArea({
   onChange,
   name,
   error = "",
+  interprets = {},
 }) {
   const ref = useRef(null);
 
+  const interpret = (value) => {
+    let tmp = value;
+    let keys = Object.keys(interprets);
+    for (let i = 0; i < keys.length; i++) {
+      tmp = tmp.replaceAll(keys[i], interprets[keys[i]]);
+    }
+    return tmp;
+  };
+
+  const reverseInterpret = (value) => {
+    let tmp = value;
+    let keys = Object.keys(interprets);
+    for (let i = 0; i < keys.length; i++) {
+      tmp = tmp.replaceAll(interprets[keys[i]], keys[i]);
+    }
+    return tmp;
+  };
+
   useEffect(() => {
-    ref.current.value = originalValue;
+    ref.current.value = reverseInterpret(originalValue);
   }, [ref, originalValue]);
 
   return (
@@ -19,7 +38,10 @@ export default function TextArea({
       <div className={styles.container}>
         <textarea
           className={styles.textInput}
-          onChange={onChange}
+          onChange={(e) => {
+            e.target.value = interpret(e.target.value);
+            onChange(e);
+          }}
           name={name}
           ref={ref}
         />

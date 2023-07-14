@@ -7,6 +7,7 @@ export default function EditableTextInput({
   onChange,
   name,
   error = "",
+  border = false,
 }) {
   const ref = useRef(null);
 
@@ -19,7 +20,7 @@ export default function EditableTextInput({
       <div className={styles.container}>
         <input
           type="text"
-          className={styles.textInput}
+          className={`${styles.textInput} ${border ? styles.border : ""}`}
           onChange={onChange}
           name={name}
           ref={ref}

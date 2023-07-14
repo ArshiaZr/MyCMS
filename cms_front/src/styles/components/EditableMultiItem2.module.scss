@@ -1,0 +1,43 @@
+.itemsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  .container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    flex-direction: row;
+
+    .eachItem {
+      padding: 0.25rem;
+      position: relative;
+      min-width: 12rem;
+      min-height: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid gray;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      .delete {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+        svg {
+          color: red;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+  .addItem {
+    cursor: pointer;
+    align-self: flex-end;
+    svg {
+      color: green;
+      font-size: 1.25rem;
+    }
+  }
+}
