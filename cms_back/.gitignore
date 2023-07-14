@@ -1,7 +1,8 @@
 node_modules/
 .env
 id_rsa_*
-uploads/
+uploads/admins/images/*
+uploads/contents/images/*
 .vscode
 specs/
 
