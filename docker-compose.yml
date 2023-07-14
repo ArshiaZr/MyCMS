@@ -14,33 +14,29 @@ services:
       EMAIL_USERNAME: ${EMAIL_USERNAME}
       EMAIL_PASSWORD: ${EMAIL_PASSWORD}
     restart: unless-stopped
+    networks:
+      - caddy-net
 
   # CMS front-end server
   cms_front:
     build: ./cms_front
     restart: unless-stopped
+    networks:
+      - caddy-net
 
-  # webserver nginx
-  webserver:
-    image: nginx
-    container_name: nginx
+  # Caddy as a webserver
+  caddy:
+    image: caddy
     restart: unless-stopped
     ports:
-      - 80:80
-      - 433:433
+      - "80:80"
+      - "443:443"
+    networks:
+      - caddy-net
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    depends_on:
-      - cms_back
-      - cms_front
+      - ./caddy/data/:/data/
+      - ./caddy/config/:/config/
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
 
-  # certbot for ssl
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email zakeri.arshia@yahoo.com -d vima-test.site  -d www.vima-test.site -d cms.vima-test.site --agree-tos
+networks:
+  caddy-net:

@@ -1,0 +1,14 @@
+{
+	"status": "valid",
+	"contact": [
+		"mailto:zakeri.arshia@yahoo.com"
+	],
+	"termsOfServiceAgreed": true,
+	"externalAccountBinding": {
+		"protected": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImpaMUVfWU9JcTlBTEpIOVRUS1EwSnciLCJ1cmwiOiJodHRwczovL2FjbWUuemVyb3NzbC5jb20vdjIvRFY5MC9uZXdBY2NvdW50In0",
+		"payload": "eyJjcnYiOiJQLTI1NiIsImt0eSI6IkVDIiwieCI6Im9EazFZTm9aS0RsdFoydGx5YnBYOGwwT3U2ZWVhTzZFdGhCY0ZSODlmOVkiLCJ5IjoibTQ4TTRjS2QwNTBIMjg5TTBtVDZneVJMUDlBOHBxekFVSVY2U0xDbkJKWSJ9",
+		"signature": "0f1klu8WMZdAZ_KSqIVwiCND4djxUaJ5GPZQbrUlatw"
+	},
+	"orders": "https://acme.zerossl.com/v2/DV90/account/jZ1E_YOIq9ALJH9TTKQ0Jw/orders",
+	"location": "https://acme.zerossl.com/v2/DV90/account/jZ1E_YOIq9ALJH9TTKQ0Jw"
+}

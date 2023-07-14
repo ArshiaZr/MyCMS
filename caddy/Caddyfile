@@ -1,0 +1,10 @@
+{
+    email zakeri.arshia@yahoo.com
+}
+
+vima-test.site {
+    reverse_proxy http://cms_front:3000
+}
+cms.vima-test.site {
+    reverse_proxy http://cms_back:5000
+}
