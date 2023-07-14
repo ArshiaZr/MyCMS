@@ -1,9 +1,0 @@
-{
-	"status": "valid",
-	"contact": [
-		"mailto:zakeri.arshia@yahoo.com"
-	],
-	"termsOfServiceAgreed": true,
-	"orders": "",
-	"location": "https://acme-v02.api.letsencrypt.org/acme/acct/1206008877"
-}
