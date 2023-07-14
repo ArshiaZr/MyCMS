@@ -1,0 +1,36 @@
+#sidebar {
+  width: 20rem;
+  background: rgba(227, 227, 227, 0.2);
+  border: 2px solid #edeff2;
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  height: 5rem;
+  height: calc(100vh - 7.5rem);
+
+  position: fixed;
+  left: 1.5rem;
+  top: 4.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  .sectionsWrapper {
+    width: 100%;
+    height: 90%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .poweredby {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #6b7a99;
+  }
+}

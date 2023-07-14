@@ -1,0 +1,19 @@
+#mainPage {
+  float: right;
+  width: calc(100% - 21.5rem);
+  background: transparent;
+  height: fit-content;
+
+  padding: 2rem;
+  margin-top: 4.5rem;
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &.full {
+    width: 100%;
+  }
+}

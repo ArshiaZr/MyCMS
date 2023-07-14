@@ -1,0 +1,16 @@
+.form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  &.horiz {
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  &.vert {
+    flex-direction: column;
+  }
+}

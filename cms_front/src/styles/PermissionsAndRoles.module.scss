@@ -1,0 +1,139 @@
+#permissionsAndRoles {
+  float: right;
+  width: calc(100% - 21.5rem);
+  background: transparent;
+  height: fit-content;
+
+  padding: 2rem;
+  margin-top: 4.5rem;
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &.full {
+    width: 100%;
+  }
+
+  .addNewWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .title {
+      text-transform: capitalize;
+      font-weight: 400;
+      font-size: 2rem;
+
+      color: #1a1d1f;
+    }
+  }
+
+  .adminsTableWrapper {
+    .title {
+      text-transform: capitalize;
+      font-weight: 400;
+      font-size: 1.75rem;
+
+      color: #1a1d1f;
+    }
+    width: 100%;
+  }
+
+  .rolesWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .title {
+      text-transform: capitalize;
+      font-weight: 400;
+      font-size: 0.8rem;
+      align-self: self-start;
+      margin-top: 0.75rem;
+      margin-right: 0.5rem;
+
+      color: #1a1d1f;
+    }
+    .permissionsToAdd {
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .actions {
+      display: flex;
+      align-self: flex-end;
+      .plus {
+        svg {
+          font-size: 1.5rem;
+          color: green;
+        }
+      }
+      .minus {
+        svg {
+          font-size: 1.5rem;
+          color: red;
+        }
+      }
+    }
+  }
+  .employeesWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .title {
+      text-transform: capitalize;
+      font-weight: 400;
+      font-size: 0.8rem;
+      align-self: self-start;
+      margin-top: 0.75rem;
+      margin-right: 0.5rem;
+
+      color: #1a1d1f;
+    }
+    .employeesToAdd {
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .actions {
+      display: flex;
+      align-self: flex-end;
+      .plus {
+        svg {
+          font-size: 1.5rem;
+          color: green;
+        }
+      }
+      .minus {
+        svg {
+          font-size: 1.5rem;
+          color: red;
+        }
+      }
+    }
+  }
+  .deleteButton {
+    background: #fef7f5;
+    color: #de2d39;
+    border-radius: 5px;
+    padding: 0.25rem 0.5rem;
+
+    text-transform: capitalize;
+  }
+
+  .editButton {
+    background: #f7f5ff;
+    color: #3d40da;
+    border-radius: 5px;
+    padding: 0.25rem 0.5rem;
+
+    text-transform: capitalize;
+  }
+}

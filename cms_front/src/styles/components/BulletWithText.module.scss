@@ -1,0 +1,35 @@
+.bulletWithText {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+
+  .outerCircle {
+    width: 1rem;
+    aspect-ratio: 1/ 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #1a1d1f;
+
+    .innerCircle {
+      width: 80%;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background-color: transparent;
+      transition: all 0.25s;
+      &.active {
+        background-color: #1a1d1f;
+      }
+    }
+  }
+
+  p {
+    text-transform: capitalize;
+    font-size: 0.8rem;
+  }
+}

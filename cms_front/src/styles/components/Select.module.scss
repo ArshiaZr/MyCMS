@@ -1,0 +1,55 @@
+.selectWrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  .title {
+    margin-top: 1rem;
+    display: none;
+    font-size: 0.8rem;
+    color: #1a1d1f;
+
+    &.show {
+      display: inline-block;
+    }
+  }
+  .container {
+    cursor: pointer;
+    min-width: 6rem;
+    max-width: 10rem;
+    padding-right: 1.5rem;
+    .select {
+      appearance: none;
+      background-color: transparent;
+      border: none;
+      margin: 0;
+      width: 100%;
+      font-family: inherit;
+      font-size: inherit;
+      cursor: inherit;
+      line-height: inherit;
+      padding: 0.5rem;
+      font-size: 0.6rem;
+      background: rgba(227, 227, 227, 0.2);
+      backdrop-filter: blur(15px);
+      border-radius: 40px;
+
+      color: #1a1d1f;
+
+      option {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+    }
+
+    .error {
+      margin-top: 0.25rem;
+      color: red;
+      margin-left: 1.5rem;
+      font-style: normal;
+      font-size: 0.85rem;
+    }
+  }
+}

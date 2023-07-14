@@ -1,0 +1,13 @@
+#itemsWrapper {
+  width: calc(100vw - 21.5rem);
+  background: transparent;
+  height: fit-content;
+
+  padding: 2rem;
+  padding-top: 9rem;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}

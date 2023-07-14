@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  # CMS back-end server
+  cms_back:
+    build: ./cms_back
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      DB_STRING: ${DB_STRING}
+      DB_STRING_PROD: ${DB_STRING_PROD}
+      PORT: ${PORT}
+      SERVER_URL: ${SERVER_URL}
+      EMAIL_SERVICE: ${EMAIL_SERVICE}
+      EMAIL_USERNAME: ${EMAIL_USERNAME}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+    restart: on-failure
+
+  # CMS front-end server
+  cms_front:
+    build: ./cms_front
+    restart: on-failure
+
+  # nginx server
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+
+    depends_on:
+      - cms_back
+      - cms_front
+
+    ports:
+      - 80:80
+    restart: on-failure

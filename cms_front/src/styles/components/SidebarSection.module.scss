@@ -1,0 +1,16 @@
+.sidebarSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .titleWrapper {
+    color: #6b7a99;
+    font-size: 0.65rem;
+  }
+  .itemsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

@@ -1,0 +1,14 @@
+.button {
+  font-size: 0.8rem;
+  backdrop-filter: blur(15px);
+  border-radius: 40px;
+  border: none;
+  padding: 1rem;
+  width: 100%;
+  max-width: 10rem;
+  min-width: 7rem;
+  text-transform: capitalize;
+  transition: all 0.25s;
+  cursor: pointer;
+  align-items: flex-end;
+}
