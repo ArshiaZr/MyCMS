@@ -6,6 +6,10 @@ const ContentSchema = new mongoose.Schema({
   },
   contents: [
     {
+      order: {
+        type: Number,
+        default: 0,
+      },
       title: {
         type: String,
         default: "",
@@ -14,10 +18,26 @@ const ContentSchema = new mongoose.Schema({
         type: String,
         default: "",
       },
-      images: {
-        type: [String],
-        default: [],
-      },
+      images: [
+        {
+          order: {
+            type: Number,
+            default: 0,
+          },
+          title: {
+            type: String,
+            default: "",
+          },
+          detail: {
+            type: String,
+            default: "",
+          },
+          image: {
+            type: String,
+            default: "",
+          },
+        },
+      ],
       link: {
         type: String,
         default: "",

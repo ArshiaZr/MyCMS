@@ -149,12 +149,25 @@ router.post("/add", auth, getAdmin, getRole, async (req, res, next) => {
     );
   }
 
+  let contentOrders = new Set();
   for (let i = 0; i < contents.length; i++) {
+    if (utils.isEmpty(contents[i].order)) {
+      return utils.logAndReturn(
+        400,
+        {
+          success: false,
+          msg: "Please specify the orders.",
+        },
+        req,
+        res
+      );
+    }
     if (
       utils.isEmpty(contents[i].title) &&
       utils.isEmpty(contents[i].detail) &&
       utils.isEmpty(contents[i].link) &&
-      utils.isEmpty(contents[i].images)
+      utils.isEmpty(contents[i].images) &&
+      utils.isEmpty(contents[i].order)
     ) {
       return utils.logAndReturn(
         400,
@@ -166,19 +179,133 @@ router.post("/add", auth, getAdmin, getRole, async (req, res, next) => {
         res
       );
     }
+
+    if (isNaN(contents[i].order)) {
+      return utils.logAndReturn(
+        400,
+        {
+          success: false,
+          msg: ErrorManager.createInvalidErrorMessage("Orders", true),
+        },
+        req,
+        res
+      );
+    }
     if (
-      !utils.isEmpty(contents[i].images) &&
-      !Array.isArray(contents[i].images)
+      contentOrders.has(contents[i].order) ||
+      contents[i].order < 1 ||
+      contents[i].order > contents.length
     ) {
       return utils.logAndReturn(
         400,
         {
           success: false,
-          msg: ErrorManager.createInvalidErrorMessage("Inputs", true),
+          msg: ErrorManager.createInvalidErrorMessage("Orders", true),
         },
         req,
         res
       );
+    }
+    contentOrders.add(contents[i].order);
+
+    if (!utils.isEmpty(contents[i].images)) {
+      if (!Array.isArray(contents[i].images)) {
+        return utils.logAndReturn(
+          400,
+          {
+            success: false,
+            msg: ErrorManager.createInvalidErrorMessage("Images", true),
+          },
+          req,
+          res
+        );
+      }
+
+      let imageOrders = new Set();
+      for (let j = 0; j < contents[i].images.length; j++) {
+        if (
+          typeof contents[i].images[j] !== "object" ||
+          utils.isEmpty(contents[i].images[j])
+        ) {
+          return utils.logAndReturn(
+            400,
+            {
+              success: false,
+              msg: ErrorManager.createInvalidErrorMessage(
+                "Images inputs",
+                true
+              ),
+            },
+            req,
+            res
+          );
+        }
+
+        if (utils.isEmpty(contents[i].images[j].order)) {
+          return utils.logAndReturn(
+            400,
+            {
+              success: false,
+              msg: "Please specify the orders for each image.",
+            },
+            req,
+            res
+          );
+        }
+
+        if (
+          utils.isEmpty(contents[i].images[j].title) &&
+          utils.isEmpty(contents[i].images[j].detail) &&
+          utils.isEmpty(contents[i].images[j].image)
+        ) {
+          return utils.logAndReturn(
+            400,
+            {
+              success: false,
+              msg: ErrorManager.createInvalidErrorMessage(
+                "Images inputs",
+                true
+              ),
+            },
+            req,
+            res
+          );
+        }
+
+        if (isNaN(contents[i].images[j].order)) {
+          return utils.logAndReturn(
+            400,
+            {
+              success: false,
+              msg: ErrorManager.createInvalidErrorMessage(
+                "Orders for each image",
+                false
+              ),
+            },
+            req,
+            res
+          );
+        }
+        if (
+          imageOrders.has(contents[i].images[j].order) ||
+          contents[i].images[j].order < 1 ||
+          contents[i].images[j].order > contents[i].images.length
+        ) {
+          return utils.logAndReturn(
+            400,
+            {
+              success: false,
+              msg: ErrorManager.createInvalidErrorMessage(
+                "Orders for each image",
+                false
+              ),
+            },
+            req,
+            res
+          );
+        }
+        imageOrders.add(contents[i].images[j].order);
+      }
     }
   }
 
@@ -275,7 +402,7 @@ router.post("/edit/:id", auth, getAdmin, getRole, async (req, res, next) => {
     return utils.logAndReturn(400, { success: false, errors }, req, res);
   }
 
-  let { contents, name } = req.body;
+  let { contents } = req.body;
 
   if (!Array.isArray(contents)) {
     return utils.logAndReturn(
@@ -289,12 +416,25 @@ router.post("/edit/:id", auth, getAdmin, getRole, async (req, res, next) => {
     );
   }
 
+  let contentOrders = new Set();
   for (let i = 0; i < contents.length; i++) {
+    if (utils.isEmpty(contents[i].order)) {
+      return utils.logAndReturn(
+        400,
+        {
+          success: false,
+          msg: "Please specify the orders.",
+        },
+        req,
+        res
+      );
+    }
     if (
       utils.isEmpty(contents[i].title) &&
       utils.isEmpty(contents[i].detail) &&
       utils.isEmpty(contents[i].link) &&
-      utils.isEmpty(contents[i].images)
+      utils.isEmpty(contents[i].images) &&
+      utils.isEmpty(contents[i].order)
     ) {
       return utils.logAndReturn(
         400,
@@ -306,19 +446,133 @@ router.post("/edit/:id", auth, getAdmin, getRole, async (req, res, next) => {
         res
       );
     }
+
+    if (isNaN(contents[i].order)) {
+      return utils.logAndReturn(
+        400,
+        {
+          success: false,
+          msg: ErrorManager.createInvalidErrorMessage("Orders", true),
+        },
+        req,
+        res
+      );
+    }
     if (
-      !utils.isEmpty(contents[i].images) &&
-      !Array.isArray(contents[i].images)
+      contentOrders.has(contents[i].order) ||
+      contents[i].order < 1 ||
+      contents[i].order > contents.length
     ) {
       return utils.logAndReturn(
         400,
         {
           success: false,
-          msg: ErrorManager.createInvalidErrorMessage("Inputs", true),
+          msg: ErrorManager.createInvalidErrorMessage("Orders", true),
         },
         req,
         res
       );
+    }
+    contentOrders.add(contents[i].order);
+
+    if (!utils.isEmpty(contents[i].images)) {
+      if (!Array.isArray(contents[i].images)) {
+        return utils.logAndReturn(
+          400,
+          {
+            success: false,
+            msg: ErrorManager.createInvalidErrorMessage("Images", true),
+          },
+          req,
+          res
+        );
+      }
+
+      let imageOrders = new Set();
+      for (let j = 0; j < contents[i].images.length; j++) {
+        if (
+          typeof contents[i].images[j] !== "object" ||
+          utils.isEmpty(contents[i].images[j])
+        ) {
+          return utils.logAndReturn(
+            400,
+            {
+              success: false,
+              msg: ErrorManager.createInvalidErrorMessage(
+                "Images inputs",
+                true
+              ),
+            },
+            req,
+            res
+          );
+        }
+
+        if (utils.isEmpty(contents[i].images[j].order)) {
+          return utils.logAndReturn(
+            400,
+            {
+              success: false,
+              msg: "Please specify the orders for each image.",
+            },
+            req,
+            res
+          );
+        }
+
+        if (
+          utils.isEmpty(contents[i].images[j].title) &&
+          utils.isEmpty(contents[i].images[j].detail) &&
+          utils.isEmpty(contents[i].images[j].image)
+        ) {
+          return utils.logAndReturn(
+            400,
+            {
+              success: false,
+              msg: ErrorManager.createInvalidErrorMessage(
+                "Images inputs",
+                true
+              ),
+            },
+            req,
+            res
+          );
+        }
+
+        if (isNaN(contents[i].images[j].order)) {
+          return utils.logAndReturn(
+            400,
+            {
+              success: false,
+              msg: ErrorManager.createInvalidErrorMessage(
+                "Orders for each image",
+                false
+              ),
+            },
+            req,
+            res
+          );
+        }
+        if (
+          imageOrders.has(contents[i].images[j].order) ||
+          contents[i].images[j].order < 1 ||
+          contents[i].images[j].order > contents[i].images.length
+        ) {
+          return utils.logAndReturn(
+            400,
+            {
+              success: false,
+              msg: ErrorManager.createInvalidErrorMessage(
+                "Orders for each image",
+                false
+              ),
+            },
+            req,
+            res
+          );
+        }
+        imageOrders.add(contents[i].images[j].order);
+      }
     }
   }
 
