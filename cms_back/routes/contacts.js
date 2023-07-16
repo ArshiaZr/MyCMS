@@ -17,6 +17,9 @@ const { validateRequests } = require(path.join(
   "../components/validation"
 ));
 
+// Error Manager
+const ErrorManager = require(path.join(__dirname, "../lib/ErrorManager"));
+
 // Send email to support email
 router.post("/", async (req, res, next) => {
   const { detail, phonenumber, email, name } = req.body;
@@ -68,16 +71,19 @@ router.post("/", async (req, res, next) => {
     return res.status(400).json({ success: false, errors });
   }
 
-  EmailHandler.sendEmail(
+  let emailRes = await EmailHandler.sendEmail(
     "contact us",
     EmailHandler.getFrom(),
     "contact",
     detail,
     contactMessage({ name, email, phonenumber, detail })
   );
-  return res
-    .status(200)
-    .json({ success: true, msg: "your message is sent successfuly" });
+  if (emailRes == true) {
+    return res
+      .status(200)
+      .json({ success: true, msg: "Your message has been sent successfuly." });
+  }
+  return res.status(400).json({ success: false, msg: ErrorManager.other() });
 });
 
 module.exports = router;

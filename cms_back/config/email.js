@@ -32,15 +32,17 @@ class Email {
       text: message,
       html,
     };
-
-    try {
-      this.transporter.sendMail(options, async (error, info) => {
-        if (error) return error;
-        else info;
-      });
-    } catch (err) {
-      // Implement logs
+    if (this.transporter) {
+      return this.transporter
+        .sendMail(options)
+        .then((info) => {
+          return true;
+        })
+        .catch((err) => {
+          return false;
+        });
     }
+    return false;
   }
 }
 
