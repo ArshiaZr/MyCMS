@@ -14,6 +14,8 @@ services:
       EMAIL_USERNAME: ${EMAIL_USERNAME}
       EMAIL_PASSWORD: ${EMAIL_PASSWORD}
     restart: unless-stopped
+    ports:
+      - 5000:5000
     networks:
       - caddy-net
 
@@ -21,10 +23,11 @@ services:
   cms_front:
     build: ./cms_front
     restart: unless-stopped
+    ports:
+      - 3000:3000
     networks:
       - caddy-net
-
-  # Caddy as a webserver
+  #Caddy as a webserver
   caddy:
     image: caddy
     restart: unless-stopped
@@ -37,6 +40,5 @@ services:
       - ./caddy/data/:/data/
       - ./caddy/config/:/config/
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
-
 networks:
   caddy-net:

@@ -70,15 +70,17 @@ export default function Forgot() {
               placeholder="username/email"
               onChange={onChange}
               name="username"
+              maxWidth="100%"
             />
             <Button
-              marginTop="1rem"
+              marginTop="2rem"
               text="send"
               type="submit"
-              color="#F7F8FA"
-              hoverColor="#FFF"
-              backgroundColor="#005FFF"
+              color="#f2f2f2"
+              hoverColor="#f2f2f2"
+              backgroundColor="#93a7ff"
               hoverBackgroundColor="#0045bb"
+              maxWidth="100%"
             />
           </Form>
         </div>

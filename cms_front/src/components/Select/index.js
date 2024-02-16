@@ -6,14 +6,18 @@ export default function Select({
   options,
   onChange,
   error = "",
-  titleShow = true,
+  titleShow = false,
   defaultValue = "",
-  backgroundColor = "rgba(227, 227, 227, 0.2)",
   border = false,
   center = false,
+  placeholder = "",
+  width,
 }) {
   return (
-    <div className={`${styles.selectWrapper} ${center ? styles.center : ""}`}>
+    <div
+      className={`${styles.selectWrapper} ${center ? styles.center : ""}`}
+      style={{ width: width ? width : "" }}
+    >
       <p className={`${styles.title} ${titleShow ? styles.show : ""}`}>
         {showingTitle}
       </p>
@@ -22,9 +26,10 @@ export default function Select({
           className={`${styles.select} ${border ? styles.border : ""}`}
           name={title}
           onChange={onChange}
-          style={{ background: backgroundColor }}
         >
-          <option value=""></option>
+          <option value="" disabled selected>
+            {placeholder}
+          </option>
           {options.map((option, idx) => {
             return (
               <option

@@ -1,0 +1,363 @@
+#pagesManagement {
+  float: right;
+  width: calc(100% - 21.5rem);
+  background: transparent;
+  height: fit-content;
+
+  padding: 2rem;
+  margin-top: 3rem;
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &.full {
+    width: calc(100% - 5rem);
+  }
+
+  transition: all 0.5s;
+
+  .addNewWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .title {
+      text-transform: capitalize;
+      font-weight: 400;
+      font-size: 2rem;
+
+      color: #1a1d1f;
+    }
+  }
+
+  .pagesContentWrapper {
+    width: 100%;
+    .title {
+      text-transform: capitalize;
+      font-weight: 400;
+      font-size: 1.75rem;
+
+      color: var(--primary-color);
+      font-weight: 700;
+    }
+
+    .searchAndOrderContainer {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .pagesSection {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .pagesContainer {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        .sectionTitle {
+          width: fit-content;
+          color: var(--black);
+          font-family: var(--primary-font);
+          font-size: 1rem;
+          font-weight: 600;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 1rem;
+          cursor: pointer;
+          img {
+            width: 1rem;
+            height: 1rem;
+            object-fit: contain;
+            transition: all 0.25s;
+          }
+
+          &.toggled {
+            img {
+              transform: scale(-1);
+            }
+          }
+        }
+
+        .container {
+          width: 100%;
+          display: none;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 3rem;
+
+          &.show {
+            display: flex;
+          }
+
+          .eachPage {
+            position: relative;
+            width: 23rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            .status {
+              top: 0;
+              right: 0;
+              transform: translate(50%, -50%);
+              position: absolute;
+              background: #f63;
+              border-radius: 21px;
+
+              padding: 0.25rem 0.7rem;
+              text-transform: capitalize;
+              color: #fff;
+              font-size: 0.8rem;
+              z-index: 1;
+              &.active {
+                background: #29cc39;
+              }
+            }
+
+            .imageWrapper {
+              position: relative;
+              width: 100%;
+              aspect-ratio: 384 / 217;
+              border-radius: 25px;
+              overflow: hidden;
+
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+
+              .overlay {
+                opacity: 1;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                padding: 0.5rem 2rem;
+                display: flex;
+                transition: all 0.5s;
+
+                background: linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.2) 0%,
+                    rgba(0, 0, 0, 0.2) 100%
+                  ),
+                  rgba(0, 0, 0, 0.2);
+
+                .name {
+                  opacity: 0;
+                  align-self: end;
+                  color: #fff;
+                  transition: all 0.25s;
+                }
+
+                &:hover {
+                  opacity: 1;
+                  background: linear-gradient(
+                    180deg,
+                    rgba(26, 29, 31, 0) 34.42%,
+                    #1a1d1f 93.09%
+                  );
+
+                  .name {
+                    opacity: 1;
+                  }
+                }
+              }
+              &.active {
+                .overlay {
+                  opacity: 0;
+                  background: linear-gradient(
+                    180deg,
+                    rgba(26, 29, 31, 0) 34.42%,
+                    #1a1d1f 93.09%
+                  );
+
+                  &:hover {
+                    opacity: 1;
+                  }
+                }
+              }
+            }
+            .control {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: space-between;
+              .edit {
+                background: var(--primary-color);
+                padding: 5px 12px;
+                cursor: pointer;
+
+                color: #fff;
+                text-align: center;
+                font-family: var(--primary-font);
+                font-size: 14.454px;
+                font-weight: 600;
+                border-radius: 24px;
+                text-transform: capitalize;
+                transition: all 0.25s;
+
+                &:hover {
+                  background: transparent;
+                  color: var(--primary-color);
+                  border: 2px solid var(--primary-color);
+                  padding: 3px 12px;
+                }
+              }
+              .live {
+                background: transparent;
+                padding: 3px 25px;
+                cursor: pointer;
+
+                color: var(--primary-color);
+                border: 2px solid var(--primary-color);
+                text-align: center;
+                font-family: var(--primary-font);
+                font-size: 14.454px;
+                font-weight: 600;
+                border-radius: 24px;
+                text-transform: capitalize;
+                transition: all 0.25s;
+
+                &:hover {
+                  background: var(--primary-color);
+                  color: #fff;
+                  border: none;
+                  padding: 5px 25px;
+                }
+              }
+              .lastUpdate {
+                font-size: 0.75rem;
+                color: var(--black);
+                font-weight: 400;
+              }
+            }
+          }
+          .newPage {
+            position: relative;
+            width: 23rem;
+
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            .imageWrapper {
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-content: center;
+              border-radius: 25px;
+              overflow: hidden;
+              position: relative;
+
+              background: var(--primary-color);
+
+              aspect-ratio: 384 / 217;
+              img {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                display: block;
+                width: 2rem;
+                height: 2rem;
+                object-fit: contain;
+                cursor: pointer;
+              }
+            }
+            .addNewPage {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+              text-transform: capitalize;
+              font-size: 0.85rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .deleteButton {
+    background-color: red;
+    background: #fef7f5;
+    color: #de2d39;
+    border-radius: 5px;
+    padding: 0.25rem 0.5rem;
+
+    text-transform: capitalize;
+  }
+}
+
+.usernameWrapper {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+
+  .username {
+    color: var(--black);
+    font-weight: 600;
+    font-size: 0.9rem;
+    width: fit-content;
+  }
+  .email {
+    color: var(--black);
+    font-weight: 400;
+    color: #8f9bb3;
+    width: fit-content;
+  }
+}
+
+.role {
+  background: var(--primary-color);
+  min-width: 7rem;
+  width: fit-content;
+  text-align: center;
+  padding: 4px 15px;
+  border-radius: 9px;
+  color: var(--white);
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.action {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+
+  button {
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    border-radius: 9px;
+    padding: 0.35rem;
+    &:hover {
+      background-color: var(--black);
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}

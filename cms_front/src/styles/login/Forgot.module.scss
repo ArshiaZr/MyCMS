@@ -4,11 +4,11 @@
   justify-content: center;
   width: 100%;
   min-height: 100vh;
-  background-color: #f7f8fa;
+  background-color: var(--white);
 
   .wrapper {
-    background: rgba(227, 227, 227, 0.2);
-    backdrop-filter: blur(15px);
+    border: 1px solid var(--primary-color);
+    background: rgba(26, 29, 31, 0.05);
     border-radius: 40px;
 
     .card {
@@ -16,8 +16,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2rem;
-      width: 25rem;
+      gap: 3rem;
+      width: 23rem;
 
       .title {
         font-weight: 400;

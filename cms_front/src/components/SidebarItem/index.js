@@ -3,7 +3,7 @@ import styles from "../../styles/components/SidebarItem.module.scss";
 import { useAppStatesContext } from "@/contexts/States";
 import { useRouter } from "next/router";
 
-export default function SidebarItem({ title, icon, count, link = "/" }) {
+export default function SidebarItem({ title, icon, icon1, count, link = "/" }) {
   const { activeSidebar, setActiveSidebar } = useAppStatesContext();
 
   const { push } = useRouter();
@@ -25,9 +25,10 @@ export default function SidebarItem({ title, icon, count, link = "/" }) {
       <div className={styles.left}>
         <div className={styles.iconWrapper}>
           <img src={icon} alt={title} />
+          <img src={icon1} alt={title} />
         </div>
         <div className={styles.titleWrapper}>
-          <p>{title.length > 20 ? title.substr(0, 17) + "..." : title}</p>
+          {title.length >= 24 ? title.substr(0, 21) + "..." : title}
         </div>
       </div>
       <div className={styles.right}>

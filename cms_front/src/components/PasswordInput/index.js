@@ -8,10 +8,14 @@ export default function PasswordInput({
   lockedIcon,
   name,
   error = "",
+  maxWidth = "",
 }) {
   const [toggle, setToggle] = useState(true);
   return (
-    <div className={styles.passwordInputWrapper}>
+    <div
+      className={styles.passwordInputWrapper}
+      style={{ maxWidth: maxWidth != "" ? maxWidth : "18rem" }}
+    >
       <div className={styles.container}>
         <input
           type={toggle ? "password" : "text"}

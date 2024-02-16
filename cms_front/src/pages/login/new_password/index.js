@@ -8,7 +8,6 @@ import styles from "../../../styles/login/NewPass.module.scss";
 import PasswordInput from "@/components/PasswordInput";
 import Button from "@/components/Button";
 import { useAppStatesContext } from "@/contexts/States";
-import { validateEmail } from "@/utils/validators";
 
 export default function Forgot() {
   const [inputs, setInputs] = useState({});
@@ -96,6 +95,7 @@ export default function Forgot() {
               onChange={onChange}
               name="new_password"
               error={errors.new_password}
+              maxWidth="100%"
             />
             <PasswordInput
               openedIcon="/icons/EyeIcon.svg"
@@ -103,15 +103,17 @@ export default function Forgot() {
               placeholder="rewrite your new password"
               onChange={onChange}
               name="confirm"
+              maxWidth="100%"
             />
             <Button
-              marginTop="1rem"
+              marginTop="2rem"
               text="send"
               type="submit"
-              color="#F7F8FA"
-              hoverColor="#FFF"
-              backgroundColor="#005FFF"
+              color="#f2f2f2"
+              hoverColor="#f2f2f2"
+              backgroundColor="#93a7ff"
               hoverBackgroundColor="#0045bb"
+              maxWidth="100%"
             />
           </Form>
         </div>

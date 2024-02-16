@@ -4,26 +4,48 @@ import { useState, useEffect } from "react";
 import Table from "@/components/Table";
 import { useAppStatesContext } from "@/contexts/States";
 import axios from "axios";
-import Select from "@/components/Select";
-import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
 
 import getConfig from "next/config";
+import TextInput from "@/components/TextInput";
+import Button from "@/components/Button";
+import Sortby from "@/components/SortBy";
+import {
+  camelToNormal,
+  dateForm,
+  mongoDateToString,
+  snakeToNormal,
+} from "@/utils/parse";
+import EditUser from "@/components/popups/EditUser";
+import AddUser from "@/components/popups/AddUser";
+import { tempEmployees } from "../../../constants";
 const { publicRuntimeConfig } = getConfig();
 
 export default function EmployeesManagement() {
   const [employeesHeader, setEmployeesHeader] = useState([
     "username",
-    "dateCreated",
     "role",
-    "enabled",
-    "verified",
+    "dateCreated",
+    "action",
+    "email",
+    "_id",
   ]);
+
+  const displayHeaderIndex = 4;
+
+  const [sortSelected, SetSortSelected] = useState("");
+  const [employeesDataStored, setEmployeesDataStored] = useState([]);
   const [employeesData, setEmployeesData] = useState([]);
+
+  const [currentEmployee, setCurrentEmployee] = useState(null);
 
   const [employees, setEmployees] = useState([]);
 
   const { token, sidebarShow, addAlert, admin, getAdmin } =
     useAppStatesContext();
+
+  const [editToggle, setEditToggle] = useState(false);
+
+  const [addToggle, setAddToggle] = useState(false);
 
   const changeRole = (id, e) => {
     if (e.target.value) {
@@ -141,24 +163,26 @@ export default function EmployeesManagement() {
       });
   };
 
-  const toggleEmployee = (cellIdx, employeesIdx, e = null) => {
-    if (employeesHeader[cellIdx] === "enabled") {
-      toggleEnabled(employees[employeesIdx]._id);
-    } else if (employeesHeader[cellIdx] === "verified") {
-      toggleVerified(employees[employeesIdx]._id);
-    } else if (employeesHeader[cellIdx] === "role") {
-      changeRole(employees[employeesIdx]._id, e);
-    }
-  };
+  // const toggleEmployee = (cellIdx, employeesIdx, e = null) => {
+  //   if (employeesHeader[cellIdx] === "enabled") {
+  //     toggleEnabled(employees[employeesIdx]._id);
+  //   } else if (employeesHeader[cellIdx] === "verified") {
+  //     toggleVerified(employees[employeesIdx]._id);
+  //   } else if (employeesHeader[cellIdx] === "role") {
+  //     changeRole(employees[employeesIdx]._id, e);
+  //   }
+  // };
 
-  const deleteEmployee = (employeesIdx) => {
-    const id = employees[employeesIdx]._id;
+  const deleteEmployee = (employeesID) => {
     axios
-      .delete(`${publicRuntimeConfig.SERVER_MANAGEMENT_URL}/employees/${id}`, {
-        headers: {
-          Authorization: token,
-        },
-      })
+      .delete(
+        `${publicRuntimeConfig.SERVER_MANAGEMENT_URL}/employees/${employeesID}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           getEmployees();
@@ -186,6 +210,23 @@ export default function EmployeesManagement() {
       });
   };
 
+  useEffect(() => {
+    //Temp
+    setEmployees(tempEmployees);
+
+    let emp = tempEmployees;
+    let ret = [];
+    for (let i = 0; i < emp.length; i++) {
+      let tmp = [];
+      for (let j = 0; j < employeesHeader.length; j++) {
+        tmp.push(emp[i][employeesHeader[j]]);
+      }
+      ret.push(tmp);
+    }
+    setEmployeesDataStored(ret);
+    setEmployeesData(ret);
+  }, [tempEmployees]);
+
   const getEmployees = () => {
     axios
       .get(`${publicRuntimeConfig.SERVER_MANAGEMENT_URL}/employees`, {
@@ -205,6 +246,7 @@ export default function EmployeesManagement() {
             }
             ret.push(tmp);
           }
+          setEmployeesDataStored(ret);
           setEmployeesData(ret);
         }
       })
@@ -232,6 +274,29 @@ export default function EmployeesManagement() {
     }
   }, [token]);
 
+  const onSearchChanged = (e) => {
+    let value = e.target.value.toLowerCase();
+    let tmp = employeesDataStored.filter((row) => {
+      return row.join("").toLowerCase().includes(value);
+    });
+    setEmployeesData(tmp);
+  };
+
+  useEffect(() => {
+    const sortIndex = employeesHeader.indexOf(sortSelected);
+    if (sortIndex !== -1) {
+      let tmp = [...employeesDataStored].sort((row1, row2) => {
+        return row1[sortIndex].localeCompare(row2[sortIndex]);
+      });
+      setEmployeesDataStored(tmp);
+      setEmployeesData(tmp);
+    }
+  }, [sortSelected, employeesHeader]);
+
+  const openAddEmployee = () => {
+    setAddToggle(true);
+  };
+
   return (
     <>
       <Head>
@@ -242,25 +307,58 @@ export default function EmployeesManagement() {
         id={styles.employeesManagement}
         className={`${!sidebarShow ? styles.full : ""}`}
       >
+        <EditUser
+          toggle={editToggle}
+          setToggle={setEditToggle}
+          employee={currentEmployee}
+        />
+        <AddUser toggle={addToggle} setToggle={setAddToggle} />
         <div className={styles.employeesTableWrapper}>
-          <h2 className={styles.title}>List of employees:</h2>
+          <h2 className={styles.title}>Employee Management</h2>
+          <div className={styles.searchAndOrderContainer}>
+            <TextInput
+              icon="/icons/searchIconDark.svg"
+              placeholder="search"
+              name="search"
+              direction="reverse"
+              maxWidth="60%"
+              background="#fff"
+              color="rgba(26, 29, 31, 0.50)"
+              borderRadius="17px"
+              onChange={onSearchChanged}
+            />
+            <Button
+              text="add user"
+              type="submit"
+              color="#f2f2f2"
+              hoverColor="#f2f2f2"
+              backgroundColor="#93a7ff"
+              hoverBackgroundColor="#0045bb"
+              icon="/icons/plusIconLight.svg"
+              minWidth="fit-content"
+              width="fit-content"
+              borderRadius="17px"
+              onClick={openAddEmployee}
+            />
+            <Sortby
+              sortSelected={sortSelected}
+              SetSortSelected={SetSortSelected}
+              options={["", "username", "role", "dateCreated"]}
+            />
+          </div>
           <Table>
+            <caption>list users</caption>
             <thead>
               <tr>
-                <th>
-                  <div>index</div>
-                </th>
-
-                {employeesHeader.map((header, idx) => {
-                  return (
-                    <th key={`head-${idx}`}>
-                      <div>{header}</div>
-                    </th>
-                  );
-                })}
-                <th>
-                  <div>Actions</div>
-                </th>
+                {employeesHeader
+                  .slice(0, displayHeaderIndex)
+                  .map((header, idx) => {
+                    return (
+                      <th key={`head-${idx}`}>
+                        <div>{camelToNormal(header)}</div>
+                      </th>
+                    );
+                  })}
               </tr>
             </thead>
             <tbody>
@@ -268,71 +366,43 @@ export default function EmployeesManagement() {
                 return (
                   <tr key={idxRow}>
                     <td>
-                      <div>{idxRow + 1} </div>
+                      <div className={styles.usernameWrapper}>
+                        <div className={styles.username}>{row[0]}</div>
+
+                        <div className={styles.email}>{row[4]}</div>
+                      </div>
                     </td>
-                    {row.map((cell, idxCell) => {
-                      if (cell === true || cell === false) {
-                        if (cell) {
-                          return (
-                            <td key={`${idxRow}-${idxCell}`}>
-                              <div>
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    toggleEmployee(idxCell, idxRow)
-                                  }
-                                >
-                                  <AiOutlineCheck style={{ color: "green" }} />
-                                </button>
-                              </div>
-                            </td>
-                          );
-                        }
-                        return (
-                          <td key={`${idxRow}-${idxCell}`}>
-                            <div>
-                              <button
-                                type="button"
-                                onClick={() => toggleEmployee(idxCell, idxRow)}
-                              >
-                                <AiOutlineClose style={{ color: "red" }} />
-                              </button>
-                            </div>
-                          </td>
-                        );
-                      }
-                      if (idxCell === 2) {
-                        return (
-                          <td key={`${idxRow}-${idxCell}`}>
-                            <div>
-                              <Select
-                                options={admin.employees}
-                                title=""
-                                showingTitle=""
-                                onChange={(e) =>
-                                  toggleEmployee(idxCell, idxRow, e)
-                                }
-                                defaultValue={cell}
-                                titleShow={false}
-                              />
-                            </div>
-                          </td>
-                        );
-                      }
-                      return (
-                        <td key={`${idxRow}-${idxCell}`}>
-                          <div>{cell != undefined ? cell.toString() : ""}</div>
-                        </td>
-                      );
-                    })}
                     <td>
-                      <div>
+                      <div className={styles.role}>{snakeToNormal(row[1])}</div>
+                    </td>
+                    <td>
+                      <div className={styles.datecreated}>
+                        {dateForm(mongoDateToString(row[2]))}
+                      </div>
+                    </td>
+                    <td>
+                      <div className={styles.action}>
                         <button
                           type="button"
-                          className={styles.deleteButton}
-                          onClick={() => deleteEmployee(idxRow)}
+                          onClick={() => {
+                            setCurrentEmployee(
+                              employees.find((employee) => {
+                                return employee["_id"] == row[5];
+                              })
+                            );
+
+                            setEditToggle(true);
+                          }}
                         >
-                          delete
+                          <img src="/icons/edit1IconGray.svg" alt="edit" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            deleteEmployee(row[5]);
+                          }}
+                        >
+                          <img src="/icons/delete1IconGray.svg" alt="delete" />
                         </button>
                       </div>
                     </td>

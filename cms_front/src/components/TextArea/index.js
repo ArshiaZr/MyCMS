@@ -34,7 +34,10 @@ export default function TextArea({
   }, [ref, originalValue]);
 
   return (
-    <div className={styles.textInputWrapper}>
+    <div
+      className={styles.textInputWrapper}
+      style={{ maxWidth: maxWidth != "" ? maxWidth : "13rem" }}
+    >
       <div className={styles.container}>
         <textarea
           className={styles.textInput}

@@ -1,78 +1,71 @@
 .tableWrapper {
+  margin-top: 3rem;
   overflow-x: scroll;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: white;
+  border-radius: 17px;
 
   .table {
     width: 100%;
     border-collapse: collapse;
-    margin: 25px 0;
     font-size: 0.9em;
     font-family: sans-serif;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    // box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+    caption {
+      text-align: left;
+      padding: 1rem;
+      text-transform: capitalize;
+      color: var(--black);
+      font-size: 1.25rem;
+    }
 
     thead {
       tr {
-        background-color: #3361ff;
-        color: #ffffff;
+        background: rgba(147, 167, 255, 0.15);
         text-align: left;
       }
     }
 
     th,
     td {
-      padding: 12px 15px;
+      padding: 0.8rem 1.25rem;
       overflow: scroll;
       white-space: nowrap;
+      width: fit-content;
     }
 
     td {
+      &:first-child {
+        padding-left: 2rem;
+      }
       font-size: 0.75rem;
       font-weight: 400;
-
-      button {
-        cursor: pointer;
-        background: transparent;
-        border: none;
-        svg {
-          font-size: 1.5rem;
-        }
-      }
     }
     th {
       &:first-child {
-        border-top-left-radius: 10px;
+        padding-left: 1.5rem;
       }
-      &:last-child {
-        border-top-right-radius: 10px;
-      }
-      font-size: 0.8rem;
-      font-weight: 500;
+
+      font-size: 0.9rem;
       text-transform: capitalize;
+      color: #8f9bb3;
+      font-weight: 600;
     }
 
     tbody {
       tr {
         border-bottom: 1px solid #dddddd;
         transition: all 0.25s;
-        &:nth-of-type(odd) {
-          background-color: #fff;
-
-          &:hover {
-            background-color: #e5e5e5;
-          }
-        }
-        &:nth-of-type(even) {
-          background-color: #f3f3f3;
-
-          &:hover {
-            background-color: #e5e5e5;
-          }
+        background-color: #fff;
+        &:hover {
+          background-color: #e5e5e5;
         }
         &:last-of-type {
-          border-bottom: 2px solid #3361ff;
+          border-bottom: none;
           td {
             &:first-child {
               border-bottom-left-radius: 10px;

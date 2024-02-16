@@ -1,20 +1,43 @@
 #sidebar {
-  width: 20rem;
-  background: rgba(227, 227, 227, 0.2);
-  border: 2px solid #edeff2;
-  backdrop-filter: blur(20px);
+  position: relative;
+  width: 3.75rem;
+
   border-radius: 20px;
+  border: 1px solid rgba(26, 29, 31, 0.05);
+  background: rgba(147, 167, 255, 0.05);
+  backdrop-filter: blur(20px);
+
   height: 5rem;
   height: calc(100vh - 7.5rem);
 
   position: fixed;
   left: 1.5rem;
-  top: 4.5rem;
+  top: 6rem;
   padding: 1rem;
+  padding-top: 2.5rem;
+  padding-left: 0rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  z-index: 10;
+
+  transition: all 0.5s;
+
+  &:hover {
+    width: 20rem;
+
+    .poweredby {
+      display: flex;
+    }
+  }
+
+  &.toggled {
+    width: 20rem;
+    .poweredby {
+      display: flex;
+    }
+  }
 
   .sectionsWrapper {
     width: 100%;
@@ -25,8 +48,41 @@
     gap: 1rem;
   }
 
-  .poweredby {
+  .toggle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+
+    background: white;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.5rem;
+
+    border-radius: 50%;
+
     display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &.toggled {
+      img {
+        transform: rotate(90deg);
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: all 0.25s;
+      transform: rotate(-90deg);
+    }
+  }
+
+  .poweredby {
+    display: none;
     flex-direction: row;
     gap: 0.5rem;
     font-weight: 400;

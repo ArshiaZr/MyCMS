@@ -5,6 +5,7 @@ import SidebarItem from "@/components/SidebarItem";
 import SidebarSection from "@/components/SidebarSection";
 import { AppStates } from "@/contexts/States";
 import "@/styles/globals.scss";
+import "@/styles/fonts.css";
 import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps, ...appProps }) {
@@ -26,59 +27,82 @@ export default function App({ Component, pageProps, ...appProps }) {
     <AppStates>
       <Navbar />
       <Sidebar show={false}>
-        <SidebarSection title={"Dashboard"}>
-          <SidebarItem
-            title="dashboard"
-            icon="/icons/windowsIcon.svg"
-            count={1}
-            link="/"
-          />
-        </SidebarSection>
-        <SidebarSection title={"admins"}>
-          <SidebarItem
-            title="admin management"
-            icon="/icons/users.svg"
-            count={1}
-            link="/admins-management"
-          />
-        </SidebarSection>
-        <SidebarSection title={"employees"}>
+        <SidebarItem
+          title="dashboard"
+          icon="/icons/dashboardIconDark.svg"
+          icon1="/icons/dashboardIconLight.svg"
+          link="/"
+        />
+        <SidebarItem
+          title="pages"
+          icon="/icons/pagesIconPrimary.svg"
+          icon1="/icons/pagesIconLight.svg"
+          link="/pages-management"
+        />
+
+        <SidebarSection
+          title={"employees"}
+          icon="/icons/EmployeeIconPrimary.svg"
+          icon1="/icons/EmployeeIconLight.svg"
+        >
           <SidebarItem
             title="employee management"
-            icon="/icons/users.svg"
-            count={1}
+            icon="/icons/EmployeeMngIconPrimary.svg"
+            icon1="/icons/EmployeeMngIconLight.svg"
             link="/employees-management"
           />
           <SidebarItem
             title="permissions and roles"
-            icon="/icons/permission.svg"
-            count={1}
+            icon="/icons/permissionIconPrimary.svg"
+            icon1="/icons/permissionIconLight.svg"
             link="/permissions-and-roles"
           />
         </SidebarSection>
 
-        <SidebarSection title={"Content Management"}>
+        <SidebarSection
+          title={"files"}
+          icon="/icons/filesIconPrimary.svg"
+          icon1="/icons/filesIconLight.svg"
+        >
           <SidebarItem
-            title="content"
-            icon="/icons/content.svg"
-            count={1}
-            link="/content-management"
+            title="images"
+            icon="/icons/filesIconPrimary.svg"
+            icon1="/icons/filesIconLight.svg"
+            link="/files-management/images"
           />
           <SidebarItem
-            title="files"
-            icon="/icons/files.svg"
-            count={1}
-            link="/image-management"
+            title="videos"
+            icon="/icons/filesIconPrimary.svg"
+            icon1="/icons/filesIconLight.svg"
+            link="/files-management/videos"
+          />
+          <SidebarItem
+            title="audios"
+            icon="/icons/filesIconPrimary.svg"
+            icon1="/icons/filesIconLight.svg"
+            link="/files-management/audios"
+          />
+          <SidebarItem
+            title="documents"
+            icon="/icons/filesIconPrimary.svg"
+            icon1="/icons/filesIconLight.svg"
+            link="/files-management/documents"
           />
         </SidebarSection>
-        <SidebarSection title={"System"}>
-          <SidebarItem
-            title="logs"
-            icon="/icons/log.svg"
-            count={1}
-            link="/logs"
-          />
+
+        <SidebarSection
+          title={"System"}
+          icon="/icons/windowsIcon.svg"
+          icon1="/icons/windowsIcon.svg"
+        >
+          <SidebarItem title="logs" icon="/icons/log.svg" link="/logs" />
         </SidebarSection>
+        <SidebarItem
+          title="Settings"
+          icon="/icons/settingsIconPrimary.svg"
+          icon1="/icons/settingsIconLight.svg"
+          link="/logs"
+        />
       </Sidebar>
       <AlertWrapper />
       <Component {...pageProps} />

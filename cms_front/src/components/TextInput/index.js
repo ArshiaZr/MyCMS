@@ -7,10 +7,24 @@ export default function TextInput({
   onIconClick,
   name,
   error = "",
+  maxWidth = "",
+  direction = "normal",
+  background,
+  borderRadius,
 }) {
   return (
-    <div className={styles.textInputWrapper}>
-      <div className={styles.container}>
+    <div
+      className={styles.textInputWrapper}
+      style={{ maxWidth: maxWidth != "" ? maxWidth : "18rem" }}
+    >
+      <div
+        className={styles.container}
+        style={{
+          flexDirection: direction == "normal" ? "row" : "row-reverse",
+          background: background ? background : "",
+          borderRadius: borderRadius ? borderRadius : "",
+        }}
+      >
         <input
           type="text"
           className={styles.textInput}

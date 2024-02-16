@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 * {
   box-sizing: border-box;
@@ -12,8 +12,37 @@ body {
   overflow-x: hidden;
 }
 
+:root {
+  /* font sizes */
+  --mob-fz-detail: 16px;
+  --mob-fz-detail2: 14px;
+  --mob-fz-detail3: 12px;
+  --mob-fz-detail4: 10px;
+  --mob-fz-title1: 38px;
+  --mob-fz-title2: 28px;
+  --mob-fz-title3: 24px;
+  --mob-fz-title4: 20px;
+
+  --desk-fz-title1: 46px;
+  --desk-fz-title2: 30px;
+  --desk-fz-title3: 26px;
+  --desk-fz-title4: 20px;
+  --desk-fz-detail: 18px;
+  --desk-fz-detail2: 16px;
+  --desk-fz-detail3: 14px;
+  --desk-fz-detail4: 12px;
+
+  /* Colors */
+  --black: #1a1d1f;
+  --white: #f2f2f2;
+  --primary-color: #93a7ff;
+
+  /* Font */
+  --primary-font: "greycliff-cf";
+}
+
 body {
-  background-color: #f7f8fa;
+  background-color: var(--white);
 }
 a {
   color: inherit;
@@ -33,5 +62,5 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Inter", sans-serif;
+  font-family: var(--primary-font), sans-serif;
 }

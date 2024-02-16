@@ -11,13 +11,13 @@ export default function Dashboard() {
 
   const { token, setActiveSidebar, sidebarShow, admin } = useAppStatesContext();
 
-  useEffect(() => {
-    if (token === "" && !localStorage.getItem("auth token")) {
-      push("/login");
-    } else if (!admin.verified) {
-      push("/complete");
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (token === "" && !localStorage.getItem("auth token")) {
+  //     push("/login");
+  //   } else if (!admin.verified) {
+  //     push("/complete");
+  //   }
+  // }, [token]);
 
   useEffect(() => {
     setActiveSidebar("dashboard");

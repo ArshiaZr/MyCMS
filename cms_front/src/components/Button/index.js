@@ -8,8 +8,13 @@ export default function Button({
   hoverColor,
   backgroundColor,
   hoverBackgroundColor,
-  width = "100%",
+  width,
   marginTop = "0",
+  maxWidth,
+  minWidth,
+  icon,
+  borderRadius,
+  onClick = null,
 }) {
   const [isHover, setIsHover] = useState(false);
 
@@ -25,14 +30,19 @@ export default function Button({
       className={styles.button}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
       style={{
         background: isHover ? hoverBackgroundColor : backgroundColor,
         color: isHover ? color : hoverColor,
-        width: width,
         marginTop: marginTop,
+        maxWidth: maxWidth ? maxWidth : "",
+        minWidth: minWidth ? minWidth : "",
+        borderRadius: borderRadius ? borderRadius : "",
+        width: width ? width : "",
       }}
     >
       {text}
+      {icon ? <img src={icon} alt={text} /> : ""}
     </button>
   );
 }

@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    border: 2px solid #1a1d1f;
+    border: 2px solid var(--black);
 
     .innerCircle {
       width: 80%;
@@ -23,7 +23,7 @@
       background-color: transparent;
       transition: all 0.25s;
       &.active {
-        background-color: #1a1d1f;
+        background-color: var(--black);
       }
     }
   }
@@ -31,5 +31,6 @@
   p {
     text-transform: capitalize;
     font-size: 0.8rem;
+    font-weight: 500;
   }
 }

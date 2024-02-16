@@ -114,14 +114,18 @@ export default function Login() {
       </Head>
 
       <div className={styles.wrapper}>
+        <div id={styles.icon}>
+          <img src="/icons/profile.svg" />
+        </div>
         <div className={styles.card}>
           <h1 className={styles.title}>Login</h1>
-          <Form align="horizontal" onSubmit={onSubmit}>
+          <Form alignment="vertical" onSubmit={onSubmit}>
             <TextInput
               icon="/icons/PersonIcon.svg"
               placeholder="username"
               onChange={onChange}
               name="username"
+              maxWidth="100%"
             />
             <PasswordInput
               openedIcon="/icons/EyeIcon.svg"
@@ -129,11 +133,12 @@ export default function Login() {
               placeholder="password"
               onChange={onChange}
               name="password"
+              maxWidth="100%"
             />
             <SubLink
               link="/login/forgot"
               text="forgot password?"
-              color="#005FFF"
+              color="#93a7ff"
             />
             {/* <Captcha /> */}
             <BulletWithText
@@ -145,10 +150,11 @@ export default function Login() {
               marginTop="1rem"
               text="login"
               type="submit"
-              color="#F7F8FA"
-              hoverColor="#FFF"
-              backgroundColor="#005FFF"
+              color="#f2f2f2"
+              hoverColor="#f2f2f2"
+              backgroundColor="#93a7ff"
               hoverBackgroundColor="#0045bb"
+              maxWidth="100%"
             />
           </Form>
         </div>
